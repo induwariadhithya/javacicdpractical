@@ -30,4 +30,13 @@ jobs:
         run: |
           java -cp out Main
       - name: Run custom Action
+        id: java-action
         uses: ./actions/java-build
+        with:
+          src: Main.java
+          main-class: Main
+
+      - name: Show action output
+        run: echo "Program output: ${{ steps.java-action.outputs.run-output }}"
+        
+

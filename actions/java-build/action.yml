@@ -1,0 +1,39 @@
+name: "Java Build Action"
+description: "Compile and run Java program"
+
+inputs:
+   src:
+      description: "Java source file (e.g., Main.java)"
+      required: true
+   main-class:
+      description: "Main class name (e.g., Main)"
+      required: true
+
+outputs:
+   run-output:
+      description: "Stdout from running the program"
+
+runs:
+   using: "composite"
+   steps:
+      - name: Compile Java
+         id: compile
+         run: |
+            mkdir -p out
+            javac -d out ${{ inputs.src }}
+         shell: bash
+
+      - name: Run Java
+         id: run
+         run: |
+            # Run the program and capture stdout (allow non-zero exit)
+            java -cp out ${{ inputs.main-class }} > run_output.txt || true
+
+            # Expose the program stdout as a step output (supports multiline)
+            echo "stdout<<EOF" >> $GITHUB_OUTPUT
+            cat run_output.txt >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+         shell: bash
+
+    
+
