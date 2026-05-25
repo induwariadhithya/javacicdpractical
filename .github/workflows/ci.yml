@@ -29,3 +29,6 @@ jobs:
       - name: Run application
         run: |
           java -cp out Main
+
+          - name: Run custom Action
+            uses: ./.github/actions/java-build
