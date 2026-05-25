@@ -30,7 +30,7 @@ runs:
             java -cp out ${{ inputs.main-class }} > run_output.txt || true
 
             # Expose the program stdout as a step output (supports multiline)
-            echo "stdout<<EOF" >> $GITHUB_OUTPUT
+            echo "run-output<<EOF" >> $GITHUB_OUTPUT
             cat run_output.txt >> $GITHUB_OUTPUT
             echo "EOF" >> $GITHUB_OUTPUT
          shell: bash

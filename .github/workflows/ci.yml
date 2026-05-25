@@ -36,7 +36,14 @@ jobs:
           src: Main.java
           main-class: Main
 
-      - name: Show action output
-        run: echo "Program output: ${{ steps.java-action.outputs.run-output }}"
+      - name: Show action input and output together
+        env:
+          INPUT_SRC: Main.java
+          INPUT_MAIN_CLASS: Main
+          ACTION_OUTPUT: ${{ steps.java-action.outputs.run-output }}
+        run: |
+          echo "Input src=$INPUT_SRC"
+          echo "Input main-class=$INPUT_MAIN_CLASS"
+          echo "Output=$ACTION_OUTPUT"
         
 
